@@ -1,0 +1,49 @@
+# set -u
+# stop script when  parameter not set
+#!/usr/bin/ksh -u
+
+# set -e
+# stop script when error return
+#!/usr/bin/ksh -e
+
+
+################################################################################
+# sample output :
+# directory | total files | total size (KB)
+################################################################################
+
+
+# 80 for description 
+################################################################################
+
+# 40 for section 
+########################################
+
+
+########################################
+#  define variable 
+########################################
+
+SCRIPT_FILE=$(basename $0)
+FIND_OUTPUT=$1
+SKIP_KEY="^$|proc"
+NMON_FILE=$(hostname)_$(date +%Y%m%d)_$(date +%H%M).nmon
+
+########################################
+# function 
+########################################
+
+function function_check_file {
+
+CHECK_FILE_LIST="${FIND_OUTPUT}"
+CHECK_FILE_RC=$(ls $"{CHECK_FILE_LIST}"  > /dev/null 2>&1 ; echo $?)
+
+if [[ ${CHECK_FILE_RC} -ne 0 ]] ; then
+echo "$(date)|ERROR"
+ls -l "${CHECK_FILE_LIST}"
+exit
+fi
+
+}
+
+
